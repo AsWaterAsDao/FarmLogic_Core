@@ -1,17 +1,20 @@
-clear()
+import actions
 while True:
-	
-		for i in range (get_world_size()):
-			for j in range(get_world_size()):
+	for i in range (get_world_size()):
+		for j in range (get_world_size()):
+			if i<6 and j<6:
+				actions.manage_pumpkin()
+			else:
 				harvest()
-				if num_items(Items.Hay) >3000:
-					if i>j:
-						plant(Entities.Bush)
-					elif i==j:
-						plant(Entities.Tree)
-					else :
-						if get_ground_type() != Grounds.Soil:
-							till()
-						plant(Entities.Carrot)				
-				move(North)
-			move(East)
+				if i>=6 and j<6:
+					if num_items(Items.Hay)<50000:
+						actions.manage_grass()
+					else:
+						actions.manage_sunflower()
+				elif i<6 and j>=6:
+					actions.manage_carrot()
+				else:
+					plant(Entities.Bush)
+			move(North)
+		move(East)
+
